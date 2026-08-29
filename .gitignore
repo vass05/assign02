@@ -1,0 +1,19 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and environments
+.ipynb_checkpoints/
+.conda/
+env/
+venv/
+.env
+
+# Temporary MS Office files
+~$*.docx
+~$*.pptx
+
+# OS specific files
+.DS_Store
+Thumbs.db

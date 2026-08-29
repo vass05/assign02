@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI Dự Đoán Giá Nhà Đất Việt Nam (ONNX)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/mobile/style.css">
+</head>
+<body>
+    <div class="mobile-container">
+        <div class="header">
+            <div class="badge">
+                <span class="status-dot"></span> ONNX Runtime Engine
+            </div>
+            <h1>Dự Đoán Giá Nhà Đất</h1>
+            <p>Hệ thống AI ước tính giá bất động sản 2024</p>
+        </div>
+
+        <form id="predictForm">
+            <div class="form-group">
+                <label for="area">
+                    Diện tích đất / nhà
+                    <span class="hint">Ví dụ: 60 - 150</span>
+                </label>
+                <div class="input-wrapper">
+                    <input type="number" id="area" step="0.1" min="10" max="1000" placeholder="Nhập diện tích" value="65.0" required>
+                    <span class="unit">m²</span>
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label for="bedroom">Số phòng ngủ</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="bedroom" min="1" max="20" placeholder="Số phòng" value="3" required>
+                        <span class="unit">phòng</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="toilet">Số phòng vệ sinh</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="toilet" min="1" max="20" placeholder="Số toilet" value="2" required>
+                        <span class="unit">phòng</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="floors">
+                    Số tầng (Số lầu)
+                    <span class="hint">Mặc định: 2 - 5 tầng</span>
+                </label>
+                <div class="input-wrapper">
+                    <input type="number" id="floors" min="1" max="30" placeholder="Nhập số tầng" value="3">
+                    <span class="unit">tầng</span>
+                </div>
+            </div>
+
+            <button type="submit" class="btn-submit" id="submitBtn">
+                <span>Dự Đoán Giá Nhà</span>
+            </button>
+        </form>
+
+        <div class="result-card" id="resultCard">
+            <div class="result-label">Ước tính giá trị bất động sản</div>
+            <div class="result-price" id="predictedPrice">-- Tỷ VNĐ</div>
+            <div class="result-unit-price" id="unitPrice">Đơn giá: -- Triệu/m²</div>
+        </div>
+
+        <div class="model-info-footer">
+            <span id="modelInfo">Mô hình: XGBoost (ONNX Engine)</span>
+            <span id="apiStatus">API: Running (Mobile Ready)</span>
+        </div>
+    </div>
+
+    <script src="/mobile/app.js"></script>
+</body>
+</html>

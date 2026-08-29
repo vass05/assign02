@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chẩn Đoán Nguy Cơ Tiểu Đường - Desktop Web Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+    <div class="desktop-wrapper">
+        <header class="navbar">
+            <div class="brand">
+                <span class="pulse-dot"></span>
+                <span class="brand-name">PTIT Intelligent Medical AI</span>
+            </div>
+            <div class="nav-links">
+                <span class="badge-status">System Active</span>
+                <a href="/mobile" class="mobile-switch-btn" title="Chuyển sang giao diện tối ưu cho điện thoại">
+                    📱 Giao diện Mobile
+                </a>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="card-container">
+                <div class="header-section">
+                    <div class="category-tag">Machine Learning Service</div>
+                    <h1>Hệ Thống Chẩn Đoán Nguy Cơ Tiểu Đường</h1>
+                    <p class="subtitle">Mô hình phân loại KNN ($K=19$) kết hợp trích xuất đặc trưng lâm sàng</p>
+                </div>
+
+                <div class="quick-samples">
+                    <span class="sample-label">Thử nghiệm nhanh:</span>
+                    <button type="button" class="btn-chip safe-chip" id="btnSampleSafe">✅ Mẫu người khỏe mạnh</button>
+                    <button type="button" class="btn-chip danger-chip" id="btnSampleDanger">⚠️ Mẫu nguy cơ cao</button>
+                </div>
+
+                <form id="predictionForm" class="prediction-form">
+                    <div class="form-group">
+                        <label for="glucose">
+                            Chỉ số Glucose (Đường huyết lúc đói)
+                            <span class="hint">Ngưỡng chuẩn y khoa: 70 - 140 mg/dL</span>
+                        </label>
+                        <div class="input-field">
+                            <input type="number" id="glucose" step="0.1" min="0" max="500" placeholder="Nhập nồng độ glucose" value="120" required>
+                            <span class="unit-tag">mg/dL</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bmi">
+                                Chỉ số Khối Cơ Thể (BMI)
+                                <span class="hint">Chuẩn: 18.5 - 24.9 kg/m²</span>
+                            </label>
+                            <div class="input-field">
+                                <input type="number" id="bmi" step="0.1" min="10" max="80" placeholder="Ví dụ: 25.5" value="25.5" required>
+                                <span class="unit-tag">kg/m²</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="age">
+                                Tuổi của bệnh nhân
+                                <span class="hint">Độ tuổi từ 21 trở lên</span>
+                            </label>
+                            <div class="input-field">
+                                <input type="number" id="age" min="1" max="120" placeholder="Ví dụ: 35" value="35" required>
+                                <span class="unit-tag">tuổi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-submit" id="btnSubmit">
+                        <span id="btnText">Phân Tích & Dự Đoán Bệnh</span>
+                    </button>
+                </form>
+
+                <div class="result-panel" id="resultPanel">
+                    <div class="result-badge" id="resultBadge">KẾT QUẢ CHẨN ĐOÁN</div>
+                    <h2 class="result-title" id="resultTitle">--</h2>
+                    
+                    <div class="gauge-container">
+                        <div class="gauge-bar" id="gaugeBar"></div>
+                    </div>
+                    <div class="gauge-stats">
+                        <span id="safeText">Bình thường: --%</span>
+                        <span id="dangerText">Nguy cơ mắc bệnh: --%</span>
+                    </div>
+
+                    <div class="advice-card" id="adviceCard">
+                        <p id="adviceMessage">Khuyến nghị chuyên môn sẽ xuất hiện ở đây.</p>
+                    </div>
+                </div>
+
+                <footer class="card-footer">
+                    <div class="info-tag">Backend: Flask REST API</div>
+                    <div class="info-tag">Mô hình: KNN (K=19)</div>
+                    <div class="info-tag">Client: Web Desktop</div>
+                </footer>
+            </div>
+        </main>
+    </div>
+
+    <script src="/web/app.js"></script>
+</body>
+</html>
