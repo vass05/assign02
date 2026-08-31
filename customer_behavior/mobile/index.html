@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Đánh Giá Khách Hàng</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/mobile/style.css">
+</head>
+<body>
+  <div class="mobile-container">
+    <!-- Header -->
+    <header class="mobile-header">
+      <div class="header-top">
+        <div class="header-left">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <div>
+            <h2 id="m-t-title">Đánh Giá Khách Hàng</h2>
+            <p id="m-t-subtitle">Dự đoán độ hài lòng & đề xuất</p>
+          </div>
+        </div>
+
+        <div class="m-lang-box">
+          <select id="mLangSelect" class="m-lang-select" aria-label="Chọn ngôn ngữ">
+            <option value="vi" selected>🇻🇳 VI</option>
+            <option value="en">🇬🇧 EN</option>
+            <option value="zh">🇨🇳 ZH</option>
+            <option value="ko">🇰🇷 KO</option>
+            <option value="ja">🇯🇵 JA</option>
+            <option value="es">🇪🇸 ES</option>
+          </select>
+        </div>
+      </div>
+    </header>
+
+    <main class="mobile-main">
+      <!-- Form -->
+      <form id="mobileForm" class="form-mobile">
+        <div class="form-row">
+          <div class="form-field">
+            <label for="mAge" id="m-t-labelAge">Tuổi của khách:</label>
+            <input type="number" id="mAge" value="34" min="18" max="99" required>
+          </div>
+          <div class="form-field">
+            <label for="mFeedback" id="m-t-labelFeedback">Số lượt thích:</label>
+            <input type="number" id="mFeedback" value="6" min="0" required>
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="mDept" id="m-t-labelDept">Loại trang phục:</label>
+          <select id="mDept">
+            <option value="Dresses">Váy đầm</option>
+            <option value="Tops">Áo thời trang</option>
+            <option value="Bottoms">Quần & Chân váy</option>
+            <option value="Intimate">Đồ lót & Đồ ngủ</option>
+            <option value="Jackets">Áo khoác</option>
+            <option value="Trend">Hàng xu hướng mới</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="mReview" id="m-t-labelReview">Lời nhận xét của khách:</label>
+          <textarea id="mReview" rows="4" placeholder="Nhập cảm nhận của khách hàng..." required>Tôi rất thích chiếc váy này! Chất vải tuyệt đẹp, mặc vừa vặn và rất thoải mái cả ngày.</textarea>
+        </div>
+
+        <button type="submit" id="mSubmitBtn" class="m-btn-submit">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="m-t-submit">Kiểm Tra Ngay</span>
+        </button>
+      </form>
+
+      <!-- Kết quả Mobile -->
+      <div id="mResultCard" class="result-card-mobile" style="display: none;">
+        <div id="mStatusBadge" class="m-badge rec">
+          <div id="mIcon" class="m-icon-line"></div>
+          <div>
+            <div id="mTitle" class="m-badge-title">KHÁCH HÀNG RẤT HÀI LÒNG</div>
+            <div id="mConfidence" class="m-badge-sub">Độ tin cậy: 95.8%</div>
+          </div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-label">
+            <span id="m-t-probLabel">Tỷ lệ hài lòng:</span>
+            <span id="mProb">95.8%</span>
+          </div>
+          <div class="progress-track">
+            <div id="mFill" class="progress-fill rec" style="width: 95.8%;"></div>
+          </div>
+        </div>
+
+        <div class="m-latency" style="margin-bottom: 0.5rem;">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span id="m-t-latencyLabel">Tốc độ xử lý:</span> <b id="mLatency">0.65 ms</b>
+        </div>
+        
+        <div class="m-latency" style="font-size: 0.8rem; color: var(--primary); margin-bottom: 0.85rem;">
+          <span>Mô hình: <b>TF-IDF + Logistic Regression</b></span>
+        </div>
+
+        <!-- Khung gợi ý mobile -->
+        <div class="m-suggest-box" id="mSuggestBox">
+          <b id="m-t-suggestTitle">Gợi ý hành động & Giải pháp:</b>
+          <ul id="mSuggestList" class="m-suggest-list"></ul>
+        </div>
+      </div>
+    </main>
+
+    <footer class="mobile-footer">
+      <span>Ứng dụng thông minh hỗ trợ bán hàng E-Commerce</span>
+    </footer>
+  </div>
+
+  <script src="/mobile/app.js"></script>
+</body>
+</html>

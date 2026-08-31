@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đánh Giá Mức Độ Hài Lòng Của Khách Hàng</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/web/style.css">
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="brand-section">
+        <svg class="header-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+          <path d="M3 6h18"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+        <div>
+          <h1 class="brand-title" id="t-brandTitle">Đánh Giá Mức Độ Hài Lòng Của Khách Hàng</h1>
+          <p class="brand-subtitle" id="t-brandSubtitle">Hệ thống thông minh dự đoán khách hàng có thích và muốn giới thiệu sản phẩm hay không</p>
+        </div>
+      </div>
+
+      <!-- Menu Chọn Ngôn Ngữ (6 Ngôn Ngữ) -->
+      <div class="lang-switch-box">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" x2="22" y1="12" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        <select id="langSelect" class="lang-dropdown" aria-label="Chọn ngôn ngữ">
+          <option value="vi" selected>🇻🇳 Tiếng Việt</option>
+          <option value="en">🇬🇧 English</option>
+          <option value="zh">🇨🇳 中文 (Chinese)</option>
+          <option value="ko">🇰🇷 한국어 (Korean)</option>
+          <option value="ja">🇯🇵 日本語 (Japanese)</option>
+          <option value="es">🇪🇸 Español (Spanish)</option>
+        </select>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <!-- Form Card -->
+      <section class="card">
+        <div class="card-title">
+          <svg class="card-title-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          <span id="t-formTitle">Thông tin người mua & Lời nhận xét</span>
+        </div>
+
+        <form id="predictForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="age" id="t-labelAge">Độ tuổi của khách:</label>
+              <input type="number" id="age" min="18" max="99" value="34" class="form-control" placeholder="Ví dụ: 34" required>
+            </div>
+            <div class="form-group">
+              <label for="positiveFeedback" id="t-labelFeedback">Số người thấy nhận xét này hay:</label>
+              <input type="number" id="positiveFeedback" min="0" value="6" class="form-control" placeholder="Ví dụ: 6" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="departmentName" id="t-labelDept">Loại trang phục:</label>
+              <select id="departmentName" class="form-control">
+                <option value="Dresses">Váy đầm</option>
+                <option value="Tops">Áo thời trang</option>
+                <option value="Bottoms">Quần & Chân váy</option>
+                <option value="Intimate">Đồ lót & Đồ ngủ</option>
+                <option value="Jackets">Áo khoác</option>
+                <option value="Trend">Hàng xu hướng mới</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="divisionName" id="t-labelDiv">Dòng sản phẩm:</label>
+              <select id="divisionName" class="form-control">
+                <option value="General">Dòng phổ thông</option>
+                <option value="General Petite">Dòng cho người nhỏ nhắn</option>
+                <option value="Initmates">Dòng nội y</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="reviewText" id="t-labelReview">Lời nhận xét của khách hàng:</label>
+            <textarea id="reviewText" rows="4" class="form-control" placeholder="Nhập cảm nhận của khách hàng khi mặc thử sản phẩm..." required>Tôi rất thích chiếc váy này! Chất vải tuyệt đẹp, mặc vừa vặn và rất thoải mái cả ngày.</textarea>
+          </div>
+
+          <button type="submit" id="submitBtn" class="btn-submit">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            <span id="t-submitBtn">Kiểm Tra Mức Độ Hài Lòng</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Prediction Result Card -->
+      <section class="card">
+        <div class="card-title">
+          <svg class="card-title-icon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span id="t-resultTitle">Kết quả đánh giá từ mô hình AI</span>
+        </div>
+
+        <div id="emptyState" class="empty-state">
+          <svg class="empty-icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+          <p id="t-emptyText">Điền thông tin bên cạnh rồi bấm <b>"Kiểm Tra Mức Độ Hài Lòng"</b> để xem kết quả nhé!</p>
+        </div>
+
+        <div id="resultBox" style="display: none;">
+          <div id="statusBadge" class="status-badge rec">
+            <div id="statusIcon" class="badge-icon-line"></div>
+            <div>
+              <div id="predTitle" class="prediction-title">KHÁCH HÀNG RẤT HÀI LÒNG & SẼ GIỚI THIỆU</div>
+              <div id="confSub" class="confidence-sub">Độ tin cậy: 95.8%</div>
+            </div>
+          </div>
+
+          <div class="meter-box">
+            <div class="meter-header">
+              <span id="t-probLabel">Mức độ hài lòng & muốn mua lại:</span>
+              <span id="probText" style="font-weight: 700; color: #0F172A;">95.8%</span>
+            </div>
+            <div class="meter-track">
+              <div id="meterFill" class="meter-fill rec" style="width: 95.8%;"></div>
+            </div>
+          </div>
+
+          <div class="stats-row">
+            <div class="stat-card">
+              <div class="stat-label-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span class="stat-card-label" id="t-latencyLabel">Tốc độ xử lý</span>
+              </div>
+              <div id="latencyVal" class="stat-card-val">0.65 ms</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-label-group">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+                <span class="stat-card-label" id="t-modelLabel">Mô hình AI đã chọn</span>
+              </div>
+              <div id="modelNameVal" class="stat-card-val" style="font-size: 0.92rem; color: var(--primary);">TF-IDF + Logistic Regression</div>
+            </div>
+          </div>
+
+          <!-- Khung Gợi Ý Giải Pháp Thông Minh -->
+          <div class="suggestions-card" id="suggestionsCard">
+            <div class="suggestions-header">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+              <b id="t-suggestHeader">Gợi ý hành động & Giải pháp chăm sóc khách hàng:</b>
+            </div>
+            <ul id="suggestionsList" class="suggestions-list"></ul>
+          </div>
+
+          <div class="summary-card" style="margin-top: 1rem;">
+            <div class="summary-header">
+              <b id="t-summaryTitle">Tóm tắt thông tin:</b>
+            </div>
+            <div id="featureSummaryText" style="margin-top: 0.35rem;"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Section Lịch Sử Đánh Giá Gần Đây -->
+    <section class="card history-section" style="margin-top: 2rem;">
+      <div class="history-header">
+        <div class="history-title-box">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span class="history-title" id="t-historyTitle">Lịch sử đánh giá gần đây</span>
+          <span class="history-count-badge" id="historyCount">0</span>
+        </div>
+        <button type="button" class="btn-clear-history" id="clearHistoryBtn" title="Xóa lịch sử">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span id="t-clearHistoryBtn">Xóa lịch sử</span>
+        </button>
+      </div>
+
+      <div id="historyEmpty" class="history-empty">
+        <p id="t-historyEmptyText">Chưa có lịch sử đánh giá nào. Hãy thử nhập thông tin và kiểm tra nhé!</p>
+      </div>
+
+      <div class="history-table-wrapper" id="historyTableWrapper" style="display: none;">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th id="t-thTime">Thời gian</th>
+              <th id="t-thCustomer">Khách hàng</th>
+              <th id="t-thCategory">Loại đồ</th>
+              <th id="t-thReview">Lời nhận xét</th>
+              <th id="t-thResult">Kết quả đánh giá</th>
+              <th id="t-thConfidence">Độ tin cậy</th>
+              <th id="t-thAction">Thao tác</th>
+            </tr>
+          </thead>
+          <tbody id="historyTableBody">
+            <!-- Rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="/web/app.js"></script>
+</body>
+</html>
