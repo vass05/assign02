@@ -8,12 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const mDept = document.getElementById('mDept');
   const mReview = document.getElementById('mReview');
 
+  const mHistoryList = document.getElementById('mHistoryList');
+  const mHistoryEmpty = document.getElementById('mHistoryEmpty');
+  const mClearHistoryBtn = document.getElementById('mClearHistoryBtn');
+
   // Minimal Vector Icons
   const iconSuccess = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
   const iconWarning = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>`;
 
   let currentLang = 'vi';
   let lastApiResponse = null;
+  let historyData = [];
 
   const I18N = {
     vi: {
@@ -33,13 +38,15 @@ document.addEventListener('DOMContentLoaded', () => {
       probLabel: 'Tỷ lệ hài lòng:',
       latencyLabel: 'Tốc độ xử lý:',
       suggestTitle: 'Gợi ý hành động & Giải pháp:',
+      historyTitle: 'Lịch sử đánh giá',
+      clearHistory: 'Xóa',
+      historyEmpty: 'Chưa có lịch sử đánh giá nào.',
+      tagRec: 'Hài lòng',
+      tagNotRec: 'Chưa hài lòng',
+      btnReload: 'Nạp',
       deptOptions: {
-        Dresses: 'Váy đầm',
-        Tops: 'Áo thời trang',
-        Bottoms: 'Quần & Chân váy',
-        Intimate: 'Đồ lót & Đồ ngủ',
-        Jackets: 'Áo khoác',
-        Trend: 'Hàng xu hướng mới'
+        Dresses: 'Váy đầm', Tops: 'Áo thời trang', Bottoms: 'Quần & Chân váy',
+        Intimate: 'Đồ lót & Đồ ngủ', Jackets: 'Áo khoác', Trend: 'Hàng xu hướng mới'
       }
     },
     en: {
@@ -59,13 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
       probLabel: 'Satisfaction Rate:',
       latencyLabel: 'Speed:',
       suggestTitle: 'Actionable Solutions:',
+      historyTitle: 'Evaluation History',
+      clearHistory: 'Clear',
+      historyEmpty: 'No evaluation history yet.',
+      tagRec: 'Satisfied',
+      tagNotRec: 'Unsatisfied',
+      btnReload: 'Load',
       deptOptions: {
-        Dresses: 'Dresses',
-        Tops: 'Tops & Blouses',
-        Bottoms: 'Pants & Skirts',
-        Intimate: 'Intimates & Sleepwear',
-        Jackets: 'Jackets & Coats',
-        Trend: 'Trending Styles'
+        Dresses: 'Dresses', Tops: 'Tops & Blouses', Bottoms: 'Pants & Skirts',
+        Intimate: 'Intimates & Sleepwear', Jackets: 'Jackets & Coats', Trend: 'Trending Styles'
       }
     },
     zh: {
@@ -85,13 +94,15 @@ document.addEventListener('DOMContentLoaded', () => {
       probLabel: '满意度意愿：',
       latencyLabel: '分析速度：',
       suggestTitle: '智能运营关怀建议：',
+      historyTitle: '评估历史记录',
+      clearHistory: '清空',
+      historyEmpty: '暂无评估历史记录。',
+      tagRec: '满意',
+      tagNotRec: '不满意',
+      btnReload: '加载',
       deptOptions: {
-        Dresses: '连衣裙',
-        Tops: '上衣与衬衫',
-        Bottoms: '裤子与半身裙',
-        Intimate: '内衣与家居服',
-        Jackets: '外套与夹克',
-        Trend: '潮流新品'
+        Dresses: '连衣裙', Tops: '上衣与衬衫', Bottoms: '裤子与半身裙',
+        Intimate: '内衣与家居服', Jackets: '外套与夹克', Trend: '潮流新品'
       }
     },
     ko: {
@@ -111,13 +122,15 @@ document.addEventListener('DOMContentLoaded', () => {
       probLabel: '만족도 비율:',
       latencyLabel: '처리 속도:',
       suggestTitle: '스마트 해결 방안:',
+      historyTitle: '분석 히스토리',
+      clearHistory: '삭제',
+      historyEmpty: '분석 기록이 없습니다.',
+      tagRec: '만족',
+      tagNotRec: '불만족',
+      btnReload: '불러오기',
       deptOptions: {
-        Dresses: '드레스/원피스',
-        Tops: '상의/블라우스',
-        Bottoms: '바지/스커트',
-        Intimate: '이너웨어/잠옷',
-        Jackets: '자켓/코트',
-        Trend: '트렌드 신상품'
+        Dresses: '드레스/원피스', Tops: '상의/블라우스', Bottoms: '바지/스커트',
+        Intimate: '이너웨어/잠옷', Jackets: '자켓/코트', Trend: '트렌드 신상품'
       }
     },
     ja: {
@@ -137,13 +150,15 @@ document.addEventListener('DOMContentLoaded', () => {
       probLabel: '満足度率：',
       latencyLabel: '処理速度：',
       suggestTitle: '改善提案・施策：',
+      historyTitle: '判定履歴',
+      clearHistory: '消去',
+      historyEmpty: '判定履歴はありません。',
+      tagRec: '満足',
+      tagNotRec: '不満',
+      btnReload: '適用',
       deptOptions: {
-        Dresses: 'ドレス・ワンピース',
-        Tops: 'トップス・ブラウス',
-        Bottoms: 'ボトムス・スカート',
-        Intimate: 'インナー・ルームウェア',
-        Jackets: 'ジャケット・アウター',
-        Trend: 'トレンド新着'
+        Dresses: 'ドレス・ワンピース', Tops: 'トップス・ブラウス', Bottoms: 'ボトムス・スカート',
+        Intimate: 'インナー・ルームウェア', Jackets: 'ジャケット・アウター', Trend: 'トレンド新着'
       }
     },
     es: {
@@ -163,13 +178,15 @@ document.addEventListener('DOMContentLoaded', () => {
       probLabel: 'Tasa de satisfacción:',
       latencyLabel: 'Velocidad:',
       suggestTitle: 'Recomendaciones y Soluciones:',
+      historyTitle: 'Historial',
+      clearHistory: 'Borrar',
+      historyEmpty: 'No hay historial aún.',
+      tagRec: 'Satisfecho',
+      tagNotRec: 'Insatisfecho',
+      btnReload: 'Cargar',
       deptOptions: {
-        Dresses: 'Vestidos',
-        Tops: 'Tops y Blusas',
-        Bottoms: 'Pantalones y Faldas',
-        Intimate: 'Lencería y Pijamas',
-        Jackets: 'Chaquetas y Abrigos',
-        Trend: 'Tendencias'
+        Dresses: 'Vestidos', Tops: 'Tops y Blusas', Bottoms: 'Pantalones y Faldas',
+        Intimate: 'Lencería y Pijamas', Jackets: 'Chaquetas y Abrigos', Trend: 'Tendencias'
       }
     }
   };
@@ -188,7 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('m-t-labelReview').innerText = t.labelReview;
     mReview.placeholder = t.reviewPlaceholder;
 
-    // Giữ nguyên văn bản người dùng đang gõ dở
     const currentVal = mReview.value.trim();
     if (!currentVal || allDefaultReviews.includes(currentVal)) {
       mReview.value = t.defaultReview;
@@ -199,7 +215,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('m-t-latencyLabel').innerText = t.latencyLabel;
     document.getElementById('m-t-suggestTitle').innerText = t.suggestTitle;
 
-    // Giữ nguyên giá trị đã chọn trong dropdown
+    document.getElementById('m-t-historyTitle').innerText = t.historyTitle;
+    mClearHistoryBtn.innerText = t.clearHistory;
+    mHistoryEmpty.innerText = t.historyEmpty;
+
     const currentDeptVal = mDept.value;
     Array.from(mDept.options).forEach(opt => {
       if (t.deptOptions[opt.value]) {
@@ -211,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lastApiResponse) {
       renderMobileResults(lastApiResponse);
     }
+    renderMobileHistory();
   }
 
   mLangSelect.addEventListener('change', (e) => {
@@ -259,6 +279,74 @@ document.addEventListener('DOMContentLoaded', () => {
     resultCard.scrollIntoView({ behavior: 'smooth' });
   }
 
+  async function fetchHistory() {
+    try {
+      const res = await fetch('/api/history');
+      const data = await res.json();
+      if (data.success) {
+        historyData = data.history;
+        renderMobileHistory();
+      }
+    } catch (e) {
+      console.warn('History fetch error', e);
+    }
+  }
+
+  function renderMobileHistory() {
+    const t = I18N[currentLang];
+    if (!historyData || historyData.length === 0) {
+      mHistoryList.style.display = 'none';
+      mHistoryEmpty.style.display = 'block';
+      return;
+    }
+
+    mHistoryEmpty.style.display = 'none';
+    mHistoryList.style.display = 'flex';
+
+    mHistoryList.innerHTML = historyData.map(item => {
+      const isRec = item.predicted_class === 1;
+      const tagText = isRec ? t.tagRec : t.tagNotRec;
+      const tagColor = isRec ? '#065F46' : '#991B1B';
+
+      return `
+        <div class="m-history-item" onclick="reloadMobileHistoryItem(${item.id})">
+          <div class="m-history-item-top">
+            <b style="color: ${tagColor}">${tagText} (${item.confidence}%)</b>
+            <span style="color: #94A3B8">${item.timestamp.split(' - ')[0]}</span>
+          </div>
+          <div class="m-history-review">"${item.review}"</div>
+          <div style="color: #64748B; display: flex; justify-content: space-between;">
+            <span>${item.age} tuổi • ${item.department}</span>
+            <span style="color: var(--primary); font-weight: 700;">${t.btnReload} ↵</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.reloadMobileHistoryItem = function(id) {
+    const item = historyData.find(h => h.id === id);
+    if (!item) return;
+
+    mAge.value = item.age;
+    mFeedback.value = item.feedback;
+    mDept.value = item.department;
+    mReview.value = item.review;
+
+    form.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  mClearHistoryBtn.addEventListener('click', async () => {
+    try {
+      const res = await fetch('/api/history', { method: 'DELETE' });
+      const data = await res.json();
+      if (data.success) {
+        historyData = [];
+        renderMobileHistory();
+      }
+    } catch (e) {}
+  });
+
   // Submit Handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -289,6 +377,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (data.success) {
         renderMobileResults(data);
+        await fetchHistory();
       } else {
         alert('Lỗi: ' + (data.error || 'Dự đoán thất bại'));
       }
@@ -302,4 +391,6 @@ document.addEventListener('DOMContentLoaded', () => {
       submitBtn.disabled = false;
     }
   });
+
+  fetchHistory();
 });
