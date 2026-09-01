@@ -1,13 +1,11 @@
-# 🎓 ASSIGNMENT 02: FROM DATA REPRESENTATION TO A DEPLOYABLE INTELLIGENT SYSTEM
+# ASSIGNMENT 02: FROM DATA REPRESENTATION TO A DEPLOYABLE INTELLIGENT SYSTEM
 
 **Học phần:** Phát triển các hệ thống thông minh (Intelligent System Development)  
 **Sinh viên thực hiện:** Vũ Viết Anh  
-**Mã sinh viên:** `anhvv.060`  
-**Học viện Công nghệ Bưu chính Viễn thông (PTIT)**
-
+ 
 ---
 
-## 🏛️ TỔNG QUAN 3 HỆ THỐNG THÔNG MINH TRONG DỰ ÁN
+## TỔNG QUAN 3 HỆ THỐNG THÔNG MINH TRONG DỰ ÁN
 
 | Hệ thống | Thư mục | Bản chất bài toán ML | Kỹ thuật biểu diễn đặc trưng | Cổng dịch vụ (Port) | Động cơ suy luận AI |
 | :--- | :--- | :--- | :--- | :---: | :--- |
@@ -17,9 +15,9 @@
 
 ---
 
-## 🚀 HƯỚNG DẪN KHỞI CHẠY TỪNG HỆ THỐNG
+## HƯỚNG DẪN KHỞI CHẠY TỪNG HỆ THỐNG
 
-### 1️⃣ Khởi chạy Hệ thống 1 (Dự đoán Tiểu đường)
+### Khởi chạy Hệ thống 1 (Dự đoán Tiểu đường)
 ```powershell
 python Assignment_02/diabetes/api/app.py
 ```
@@ -29,7 +27,7 @@ python Assignment_02/diabetes/api/app.py
 
 ---
 
-### 2️⃣ Khởi chạy Hệ thống 2 (Dự đoán Giá nhà đất - ONNX Engine)
+### Khởi chạy Hệ thống 2 (Dự đoán Giá nhà đất - ONNX Engine)
 ```powershell
 python Assignment_02/house_price/api/app.py
 ```
@@ -39,7 +37,7 @@ python Assignment_02/house_price/api/app.py
 
 ---
 
-### 3️⃣ Khởi chạy Hệ thống 3 (Phân tích Đánh giá Khách hàng TMĐT)
+### Khởi chạy Hệ thống 3 (Phân tích Đánh giá Khách hàng TMĐT)
 ```powershell
 python Assignment_02/customer_behavior/api/app.py
 ```
@@ -49,7 +47,7 @@ python Assignment_02/customer_behavior/api/app.py
 
 ---
 
-## 📂 CẤU TRÚC THƯ MỤC CHUẨN ĐỒNG BỘ 100%
+## CẤU TRÚC THƯ MỤC 
 
 ```
 Assignment_02/
